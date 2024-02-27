@@ -1,1 +1,2 @@
-# com480DataVisualization
+# COM-480 Data Visualization
+---
