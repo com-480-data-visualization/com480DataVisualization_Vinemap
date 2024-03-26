@@ -15,10 +15,19 @@
 
 **10% of the final grade**
 
-This is a preliminary milestone to let you set up goals for your final project and assess the feasibility of your ideas.
-Please, fill the following sections about your project.
+Welcome to **Vinemap**—your digital sommelier. We aim to create an interactive website to bring to life the rich data of over 100,000 wines from across the globe.
 
-*(max. 2000 characters per section)*
+At the heart of Vinemap lies an interactive map, a feature that sets it apart from existing platforms, and serves as the gateway to a richer understanding and appreciation of global wine culture. Did you know that there are over 10,000 grape varieties throughout the world? Each region offers its own incredible stories, grape varieties, and unique wine-making traditions that contribute to the immense diversity of wine.
+
+But Vinemap will be more than just a map; a toolkit for any wine lovers that will match you to your specific tastes, budget, and a particular fondness for regional wines.
+
+Embark on this adventure with us to appreciate the diversity of wines from all over the world.
+
+Join us on this expedition to explore and celebrate the diversity of wines from across the planet.
+
+
+
+
 
 ### Dataset
 
