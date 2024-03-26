@@ -25,8 +25,7 @@ Embark on this adventure with us to appreciate the diversity of wines from all o
 
 Join us on this expedition to explore and celebrate the diversity of wines from across the planet.
 
-<span style="color:gray; font-style:italic;"> (include the word count of this to Problematic section). </span>
-
+<span style="color:gray">*(add the word count of this intro to Problematic section).*</span>
 
 
 ### Dataset
@@ -56,12 +55,9 @@ To enhance the understanding of how geographic factors influence wine characteri
 Preprocessing will consist on matching the locations from these datasets to those of the wine reviews. Furthermore, the World Factbook dataset contains more data than needed, so it fill be filtered to focus on the parameters relevant to the project.
 
 
-
-
-
 ### Problematic
 
-Today, there are numerous resources to get information about wine, such as Vivino, Wine Spectator, Wine Enthusiast, or Decanter. While they all provide comprehensive data about different wines, none of them is organized around the geographic aspect of the wine. Our visualization's main objective is to enhance the discovery and appreciation of wines from around the world by integrating detailed wine wine characteristics with geographic and climatic data.
+Today, there are numerous resources to get information about wine, such as [Vivino](https://www.vivino.com/), [Wine Spectator](https://www.winespectator.com/), [Wine Enthusiast](https://www.winemag.com/), or [Decanter](https://www.decanter.com/). While they all provide comprehensive data about different wines, none of them is organized around the geographic aspect of the wine. Our visualization's main objective is to enhance the discovery and appreciation of wines from around the world by integrating detailed wine characteristics with geographic and climatic data.
 
 Key Features of Vinemap Visualization:
 
