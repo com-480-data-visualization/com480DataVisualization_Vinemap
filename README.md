@@ -39,11 +39,10 @@ Please, fill the following sections about your project.
 
 ### Related work
 
+Drawing inspiration from "The World Atlas of Wine" by Hugh Johnson and Jancis Robinson, our project seeks to enhance the way wine enthusiasts explore the world of viticulture and oenology via an innovative digital and interactive map.  This map aims to encapsulate the rich and detailed information found within the book, while providing the added advantage of interactive elements that allow users to easily access the specificities of each region's wine production. Our motivation to pursue this digital transformation stems from the limitations of static print media, which, while informative, cannot offer the dynamic engagement a digital platform can.
 
-> - What others have already done with the data?
-> - Why is your approach original?
-> - What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
-> - In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
+During our search for inspiration among previous projects, we came across one particularly interesting project titled "Wine 101."  While this offered valuable insights into the basics of wine tasting, our interests lied in mapping the terroir and climate that define each wine region, thereby presenting a more rounded perspective of the global wine landscape. The originality of our approach lies not just in the map’s interactivity but in its educational potential to transform casual wine appreciation into a well-informed hobby. Through this project, we present a comprehensive global overview of wine production, while simultaneously offering detailed insights into each individual wine, ensuring a balanced exploration at both large and small scales.
+
 
 ## Milestone 2 (26th April, 5pm)
 
