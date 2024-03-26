@@ -21,9 +21,7 @@ At the heart of Vinemap lies an interactive map, a feature that sets it apart fr
 
 But Vinemap will be more than just a map; a toolkit for any wine lovers that will match you to your specific tastes, budget, and a particular fondness for regional wines.
 
-Embark on this adventure with us to appreciate the diversity of wines from all over the world.
-
-Join us on this expedition to explore and celebrate the diversity of wines from across the planet.
+Join us on this expedition to explore and celebrate the diversity of wines from across the world.
 
 <span style="color:gray">*(add the word count of this intro to Problematic section).*</span>
 
