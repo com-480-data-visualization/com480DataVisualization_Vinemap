@@ -69,6 +69,37 @@ Key Features of Vinemap Visualization:
 > Pre-processing of the data set you chose
 > - Show some basic statistics and get insights about the data
 
+
+#### Distribution of Wine Scores
+- Wine scores are centered around 88 to 90 points, indicating a generally high quality across the dataset.
+
+#### Distribution of Wine Prices
+- Prices are right-skewed, with most wines in the lower price range and a few expensive outliers.
+
+#### Relationship between Price and Points
+- There is no strong linear relationship between price and points; high-priced wines do not necessarily have higher scores.
+
+#### Distribution of Wines by Country
+- The United States, France, and Italy are the top countries by number of wines listed.
+- These countries are major players in the global wine market, with a significant number of wines produced.
+#### Wine Production by Province
+
+- **United States**: California significantly leads in wine production.
+- **Italy**: Tuscany, Piedmont, and Veneto are major wine-producing regions.
+- **France**: A balanced wine production with regions like Burgundy and Alsace at the forefront.
+- **Spain**: Catalonia is the top producing region, followed by Levante and Andalucia.
+- **Portugal**: Douro and Alentejo are key to Portugal's wine production.
+
+#### Wine Variety Popularity
+
+The pie chart shows Pinot Noir and Chardonnay as the most popular varieties, with a notable presence of Cabernet Sauvignon and Red Blend.
+
+#### Distribution of Wine Years
+
+There is a peak in recent vintages, particularly around 2010 to 2013, indicating a trend towards newer wines.
+
+
+
 ### Related work
 
 Drawing inspiration from "The World Atlas of Wine" by Hugh Johnson and Jancis Robinson, our project seeks to enhance the way wine enthusiasts explore the world of viticulture and oenology via an innovative digital and interactive map.  This map aims to encapsulate the rich and detailed information found within the book, while providing the added advantage of interactive elements that allow users to easily access the specificities of each region's wine production. Our motivation to pursue this digital transformation stems from the limitations of static print media, which, while informative, cannot offer the dynamic engagement a digital platform can.
