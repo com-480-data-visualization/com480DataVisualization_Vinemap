@@ -17,7 +17,7 @@
 
 Welcome to **Vinemap**—your digital sommelier. We aim to create an interactive website to bring to life the rich data of over 100,000 wines from across the globe.
 
-At the heart of Vinemap lies an interactive map, a feature that sets it apart from existing platforms, and serves as the gateway to a richer understanding and appreciation of global wine culture. Did you know that there are over 10,000 grape varieties throughout the world? Each region offers its own incredible stories, grape varieties, and unique wine-making traditions that contribute to the immense diversity of wine.
+At the heart of Vinemap lies an interactive map, a feature that sets it apart from existing platforms, as the main goal of Vinemap is to serve as the gateway to a richer understanding and appreciation of _global_ wine culture. Did you know that there are over 10,000 grape varieties throughout the world? Each region offers its own incredible stories, grape varieties, and unique wine-making traditions that contribute to the immense diversity of wine.
 
 But Vinemap will be more than just a map; a toolkit for any wine lovers that will match you to your specific tastes, budget, and a particular fondness for regional wines.
 
@@ -68,6 +68,37 @@ Key Features of Vinemap Visualization:
 
 > Pre-processing of the data set you chose
 > - Show some basic statistics and get insights about the data
+
+
+#### Distribution of Wine Scores
+- Wine scores are centered around 88 to 90 points, indicating a generally high quality across the dataset.
+
+#### Distribution of Wine Prices
+- Prices are right-skewed, with most wines in the lower price range and a few expensive outliers.
+
+#### Relationship between Price and Points
+- There is no strong linear relationship between price and points; high-priced wines do not necessarily have higher scores.
+
+#### Distribution of Wines by Country
+- The United States, France, and Italy are the top countries by number of wines listed.
+- These countries are major players in the global wine market, with a significant number of wines produced.
+#### Wine Production by Province
+
+- **United States**: California significantly leads in wine production.
+- **Italy**: Tuscany, Piedmont, and Veneto are major wine-producing regions.
+- **France**: A balanced wine production with regions like Burgundy and Alsace at the forefront.
+- **Spain**: Catalonia is the top producing region, followed by Levante and Andalucia.
+- **Portugal**: Douro and Alentejo are key to Portugal's wine production.
+
+#### Wine Variety Popularity
+
+The pie chart shows Pinot Noir and Chardonnay as the most popular varieties, with a notable presence of Cabernet Sauvignon and Red Blend.
+
+#### Distribution of Wine Years
+
+There is a peak in recent vintages, particularly around 2010 to 2013, indicating a trend towards newer wines.
+
+
 
 ### Related work
 
