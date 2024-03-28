@@ -99,7 +99,7 @@ Key Features of Vinemap Visualization:
 - **United States**: California significantly leads in wine production.
 - **Italy**: Tuscany, Piedmont, and Veneto are major wine-producing regions.
 - **France**: A balanced wine production with regions like Burgundy and Alsace at the forefront.
-- **Spain**: Catalonia is the top producing region, followed by Levante and Andalucia.
+- **Spain**: Northern Spain is the top producing region, followed by Catalonia, Levante and Andalucia.
 - **Portugal**: Douro and Alentejo are key to Portugal's wine production.
 
 #### Wine Variety Popularity
