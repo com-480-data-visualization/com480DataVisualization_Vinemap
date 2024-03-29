@@ -1,5 +1,3 @@
-
-=======
 # Project of Data Visualization (COM-480)
 
 | Student's name | SCIPER |
@@ -135,5 +133,3 @@ During our search for inspiration among previous projects, we came across one pa
 
 - < 24h: 80% of the grade for the milestone
 - < 48h: 70% of the grade for the milestone
-
->>>>>>> f80772e6b268d652a14c1f7311726e79421e3d4b
