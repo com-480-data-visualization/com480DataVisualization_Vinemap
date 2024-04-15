@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Vinemap</title>
+
+    </head>
+    <body style="background-color:#7d3a31;">
+        <div align="center" style="color: #cea47e;">
+            
+            <h3>How old are thee?</h1>
+            <input type="number" id="ageInput">
+            <br>
+            <br>
+            <button onclick="verifyAge()">Submit</button>
+            <p id="message"></p>
+            
+            <script>
+            function verifyAge() {
+                var age = document.getElementById('ageInput').value;
+                if (age >= 18) {
+                    window.location.href = 'map.html';
+                } else {
+                    document.getElementById('message').innerHTML = 'Come back a few years later...';
+                }
+            }
+            </script>
+        </div>
+    </body>
+</html>
+
+
