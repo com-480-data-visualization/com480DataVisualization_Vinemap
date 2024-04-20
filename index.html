@@ -2,28 +2,51 @@
 <html>
     <head>
         <title>Vinemap</title>
-
+        <!-- Minified version -->
+        <link rel="stylesheet" href="unpkg.com/browse/normalize.css">
+        <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+        <link rel="stylesheet" href="style.css">
     </head>
-    <body style="background-color:#7d3a31;">
+    <body onload="typeWriter()">
         <div align="center" style="color: #cea47e;">
             
-            <h3>How old are thee?</h1>
+            <h3>How old are thee?</h3>
             <input type="number" id="ageInput">
             <br>
             <br>
-            <button onclick="verifyAge()">Submit</button>
-            <p id="message"></p>
+            <a class="button" onclick="verifyAge()">Submit</a>
+            <p id="message" class="notice"></p>
+
             
             <script>
             function verifyAge() {
+                
+                var i = 0;
+                var txt = 'Come back a few years later :)';
+                var speed = 50;
+
                 var age = document.getElementById('ageInput').value;
                 if (age >= 18) {
                     window.location.href = 'map.html';
                 } else {
-                    document.getElementById('message').innerHTML = 'Come back a few years later...';
+                    document.getElementById('message').innerHTML = txt;
                 }
             }
             </script>
+            <script>
+                var i = 0;
+                var txt = 'Welcome to The Wine Atlas!!';
+                var speed = 50;
+                
+                function typeWriter() {
+                  if (i < txt.length) {
+                    document.getElementById("message").innerHTML += txt.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+                  }
+                }
+            </script>
+
         </div>
     </body>
 </html>
