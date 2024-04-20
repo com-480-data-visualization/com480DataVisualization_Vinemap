@@ -1,4 +1,13 @@
 :root {
     --accent: #cea47e;
+    --background: #cea47e;
     background-color: #7d3a31;
+    
   }
+p{
+  color: #cea47e;
+}
+
+h3{
+  color: #cea47e;
+}
