@@ -1,54 +1,83 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Vinemap</title>
-        <!-- Minified version -->
-        <link rel="stylesheet" href="unpkg.com/browse/normalize.css">
-        <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body onload="typeWriter()">
-        <div align="center">
-            
-            <h3>How old are thee?</h3>
-            <input type="number" id="ageInput">
-            <br>
-            <br>
-            <a class="button" onclick="verifyAge()">Submit</a>
-            <p id="message" class="notice"></p>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website Title</title>
+    <link rel="stylesheet" href="css/style.css"> <!-- Ensure the path is correct -->
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: url('../images/Home.png'); /* Ensure you replace this URL */
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
 
-            
-            <script>
-            function verifyAge() {
-                
-                var i = 0;
-                var txt = 'Come back a few years later :)';
-                var speed = 50;
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
 
-                var age = document.getElementById('ageInput').value;
-                if (age >= 18) {
-                    window.location.href = 'map_.html';
-                } else {
-                    document.getElementById('message').innerHTML = txt;
-                }
-            }
-            </script>
-            <script>
-                var i = 0;
-                var txt = 'Welcome to The Wine Atlas!!';
-                var speed = 50;
-                
-                function typeWriter() {
-                  if (i < txt.length) {
-                    document.getElementById("message").innerHTML += txt.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, speed);
-                  }
-                }
-            </script>
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fefefe;
+            padding: 40px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
 
-        </div>
-    </body>
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="ageModal" class="modal">
+    <div class="modal-content">
+        <h2>Please verify your age</h2>
+        <input type="number" id="ageInput" placeholder="Enter your age">
+        <button onclick="verifyAge()">Submit</button>
+        <p id="message"></p>
+    </div>
+</div>
+
+<script>
+    function showModal() {
+        var modal = document.getElementById("ageModal");
+        modal.style.display = "block";
+    }
+
+    // Delay the modal display by 10 seconds (10000 milliseconds)
+    setTimeout(showModal, 10000);
+
+    function verifyAge() {
+        var age = document.getElementById('ageInput').value;
+        if (age >= 18) {
+            window.location.href = 'map_.html';
+        } else if (age !== '') {
+            document.getElementById('message').innerHTML = 'Come back a few years later :)';
+        } else {
+            document.getElementById('message').innerHTML = 'Please enter your age.';
+        }
+    }
+</script>
+
+</body>
 </html>
-
-
