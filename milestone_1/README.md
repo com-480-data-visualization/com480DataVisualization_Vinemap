@@ -57,23 +57,23 @@ Key Features of Vinemap Visualization:
 
 
 #### Distribution of Wine Scores
-<img src="charts/winescores.png" width="700" height="400">
+<img src="../charts/winescores.png" width="700" height="400">
 
 - Wine scores are centered around 88 to 90 points, indicating a generally high quality across the dataset.
 
 #### Distribution of Wine Prices
-<img src="charts/wineprices.png" width="700" height="400">
+<img src="../charts/wineprices.png" width="700" height="400">
 
 - Prices are right-skewed, with most wines in the lower price range and a few expensive outliers.
 
 #### Relationship between Price and Points
-<img src="charts/price&points.png" width="700" height="400">
+<img src="../charts/price&points.png" width="700" height="400">
 
 - There is no strong linear relationship between price and points; high-priced wines do not necessarily have higher scores.
 
 #### Distribution of Wines by Country
 
-<img src="charts/countries.png" width="600" height="600">
+<img src="../charts/countries.png" width="600" height="600">
 - The United States, France, and Italy are the top countries by number of wines listed.
 - These countries are major players in the global wine market, with a significant number of wines produced.
 
@@ -81,7 +81,7 @@ Key Features of Vinemap Visualization:
 #### Wine Production by Province
 
 
-<img src="charts/provinces.png" width="700" height="1600">
+<img src="../charts/provinces.png" width="700" height="1600">
 
 - **United States**: California significantly leads in wine production.
 - **Italy**: Tuscany, Piedmont, and Veneto are major wine-producing regions.
@@ -90,12 +90,12 @@ Key Features of Vinemap Visualization:
 - **Portugal**: Douro and Alentejo are key to Portugal's wine production.
 
 #### Wine Variety Popularity
-<img src="charts/varieties.png" width="600" height="600">
+<img src="../charts/varieties.png" width="600" height="600">
 
 The pie chart shows Pinot Noir and Chardonnay as the most popular varieties, with a notable presence of Cabernet Sauvignon and Red Blend.
 
 #### Distribution of Wine Years
-<img src="charts/years.png" width="700" height="400">
+<img src="../charts/years.png" width="700" height="400">
 
 There is a peak in recent vintages, particularly around 2010 to 2013, indicating a trend towards newer wines.
 
