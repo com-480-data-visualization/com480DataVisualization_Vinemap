@@ -23,6 +23,8 @@ We present the introduction to the project, including:
 
 [Milestone 1](milestone_1/)
 
+
+
 ## Milestone 2 (26th April, 5pm)
 
 **10% of the final grade**
@@ -30,6 +32,8 @@ We present the introduction to the project, including:
 We present the basic skeleton of the website, as well as describing the tools and independent pieces of the project we plan to implement. Follow the link below to access the milestone.
 
 [Milestone 2](milestone_2/)
+
+The prototype of the website is [https://sulcay.github.io](https://sulcay.github.io)
 
 
 
