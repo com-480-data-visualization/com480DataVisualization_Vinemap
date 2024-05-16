@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubble Plot</title>
+    <link rel="stylesheet" href="bb_style.css">
+    <link href="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/nouislider/distribute/nouislider.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stopword/dist/stopword.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
+</head>
+<body>
+    <div class="content-wrapper">
+        <!-- Column 1: Visualization Container now includes controls -->
+        <div id="my_dataviz">
+            <!-- Controls for Filtering and Searching -->
+            <div class="control-panel">
+                <button id="removeFilterButton">Reset Filters</button>
+                <button id="resetShuffleButton">Reset & Shuffle</button>
+                <div id="priceSlider" class="slider"></div>
+                <span id="priceDisplay">Range: $0 - $323</span>
+                <div id="pointsSlider" class="slider"></div>
+                <span id="pointsDisplay">Range: 80 - 100</span>
+            </div>
+            <!-- Additional space for visualization if needed -->
+        </div>
+
+        <!-- Column 2: Controls and Additional Details -->
+        <div class="control-and-details">
+            <!-- Row 1: Controls for Filtering and Searching -->
+            <div class="search-wrapper">
+                <label for="search">Filter Winery</label>
+                <input type="search" id="search" data-search>
+            </div>
+
+            <!-- Container for User Cards Display -->
+            <div class="user-cards" data-user-cards-container>
+                <!-- User cards will be dynamically inserted here -->
+            </div>
+
+            <!-- Template for User Cards -->
+            <template data-user-template>
+                <div class="user-card">
+                    <div data-header></div> <!-- Winery name will be displayed here -->
+                    <div data-subtext></div> <!-- Country will be displayed here in light gray -->
+                </div>
+            </template>
+
+            <!-- Row 2: Additional Details -->
+            <div class="viz-wineries">
+                <div class="detail-panel-2">
+                    <!-- Detailed Information Panel -->
+                    <table class="info-table">
+                        <tr><th>Winery</th><td id="Winery-winery"></td></tr>
+                        <tr><th>Country</th><td id="Country-winery"></td></tr>
+                        <tr><th>Number of Wines</th><td id="Number-winery"></td></tr>
+                        <tr><th>Provinces</th><td id="Provinces-winery"></td></tr>
+                        <tr><th>Mean Price</th><td id="MeanPrice-winery"></td></tr>
+                        <tr><th>Min Price</th><td id="MinPrice-winery"></td></tr>
+                        <tr><th>Max Price</th><td id="MaxPrice-winery"></td></tr>
+                        <tr><th>Median Price</th><td id="MedianPrice-winery"></td></tr>
+                        <tr><th>Price Std Dev</th><td id="PriceStdDev-winery"></td></tr>
+                        <tr><th>Mean Score</th><td id="MeanScore-winery"></td></tr>
+                        <tr><th>Min Score</th><td id="MinScore-winery"></td></tr>
+                        <tr><th>Max Score</th><td id="MaxScore-winery"></td></tr>
+                        <tr><th>Median Score</th><td id="MedianScore-winery"></td></tr>
+                        <tr><th>Score Std Dev</th><td id="ScoreStdDev-winery"></td></tr>
+                        <tr><th>Designations</th><td id="Designations-winery"></td></tr>
+                        <tr><th>Varieties</th><td id="Varieties-winery"></td></tr>
+                    </table>
+                </div>
+                <div id="word-cloud"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Information Panel below both columns -->
+    <div class="detail-panel">
+        <div class="compact-table">
+            <div class="table-row">
+                <div class="table-title"><strong>Country</strong></div>
+                <div class="table-value" id="country-value"></div>
+                <div class="table-title"><strong>Winery</strong></div>
+                <div class="table-value" id="winery-value"></div>
+                <div class="table-title"><strong>Designation</strong></div>
+                <div class="table-value" id="designation-value"></div>
+            </div>
+            <div class="table-row">
+                <div class="table-title"><strong>Points</strong></div>
+                <div class="table-value" id="points-value"></div>
+                <div class="table-title"><strong>Price</strong></div>
+                <div class="table-value" id="price-value"></div>
+                <div class="table-title"><strong>Province</strong></div>
+                <div class="table-value" id="province-value"></div>
+            </div>
+            <div class="table-row">
+                <div class="table-title"><strong>Title</strong></div>
+                <div class="table-value" id="title-value"></div>
+                <div class="table-title"><strong>Variety</strong></div>
+                <div class="table-value" id="variety-value"></div>
+                <div class="table-title"><strong>Description</strong></div>
+                <div class="table-value" id="description-value"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="bubble_plot.js"></script>
+</body>
+</html>

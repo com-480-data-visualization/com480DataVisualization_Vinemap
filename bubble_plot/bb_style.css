@@ -1,0 +1,155 @@
+/* General body and theme settings */
+:root {
+  --primary-color: #80b300;
+  --secondary-color: #f9f9f9;
+  --accent-color: #007BFF;
+  --font-family: 'Roboto', Arial, sans-serif;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--secondary-color);
+  flex-direction: column;
+}
+
+.content-wrapper {
+  display: grid;
+  grid-template-columns: 3fr 5fr;
+  width: 90%;
+  height: 600px;
+  gap: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: var(--box-shadow);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+/* Column 1: Visualization Container */
+#my_dataviz {
+  padding: 0px;
+  border-right: 1px solid #ccc;
+  overflow: auto;
+}
+
+/* Column 2: Controls and Additional Details */
+.control-and-details {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow: auto;
+}
+
+/* Reusable button styles */
+button {
+  padding: 10px;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: var(--primary-color);
+}
+
+/* Search and sliders */
+.search-wrapper, .slider {
+  margin-bottom: 10px;
+}
+
+#search, .slider {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+}
+
+/* User Card & Dropdown Styling */
+.user-cards {
+  position: absolute;
+  width: calc(100% - 2px);
+  top: 80px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 100;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  display: none;
+}
+
+.user-card:hover {
+  background-color: #f4f4f4;
+}
+
+/* Details panels */
+.detail-panel {
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  background-color: var(--secondary-color);
+  padding: 10px;
+  width: 90%;
+  height: 600px;
+}
+
+
+/* Advanced animations and transitions */
+[data-header], [data-subtext] {
+  transition: color 0.3s ease-in-out;
+}
+
+[data-header]:hover {
+  color: var(--accent-color);
+}
+
+
+
+
+.viz-wineries {
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.winery-info h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #4A90E2;
+}
+
+.winery-info p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.winery-stats svg {
+  width: 100%;
+  height: 200px;
+}
+
+.winery-extras p {
+  font-size: 14px;
+  color: #666;
+}
+
+.detail-panel-2 {
+  border: 2px solid #ccc;
+  padding: 10px;
+  opacity: 0; /* Start hidden and fade in */
+  transition: opacity 0.5s ease-in-out;
+}
