@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Website Title</title>
-    <link rel="stylesheet" href="css/style.css"> <!-- Ensure the path is correct -->
     <style>
         body, html {
             height: 100%;
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url('../images/Home.png'); /* Ensure you replace this URL */
+            background-image: url('../images/home.png'); /* Make sure this path is correct */
             background-position: center center;
             background-repeat: no-repeat;
-            background-size: cover;
+            background-size: cover;  
         }
 
         .modal {
@@ -34,10 +33,13 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: #fefefe;
-            padding: 40px;
+            padding: 20px;
+            border: 2px solid #ccc;
             border-radius: 10px;
             width: 90%;
-            max-width: 400px;
+            max-width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
 
         input, button {
@@ -59,24 +61,32 @@
 </div>
 
 <script>
-    function showModal() {
+document.addEventListener("DOMContentLoaded", function() {
+    // Set a timer to delay the modal display by 10 seconds
+    setTimeout(function() {
         var modal = document.getElementById("ageModal");
         modal.style.display = "block";
-    }
+    }, 3000); // Change 10000 to the number of milliseconds you want to delay
 
-    // Delay the modal display by 10 seconds (10000 milliseconds)
-    setTimeout(showModal, 10000);
-
-    function verifyAge() {
-        var age = document.getElementById('ageInput').value;
-        if (age >= 18) {
-            window.location.href = 'map_.html';
-        } else if (age !== '') {
-            document.getElementById('message').innerHTML = 'Come back a few years later :)';
-        } else {
-            document.getElementById('message').innerHTML = 'Please enter your age.';
+    var input = document.getElementById('ageInput');
+    input.addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            verifyAge();
         }
+    });
+});
+
+function verifyAge() {
+    var age = document.getElementById('ageInput').value;
+    if (age >= 18) {
+        window.location.href = 'map_.html';
+    } else if (age !== '') {
+        window.location.href = 'under18.html';
+    } else {
+        document.getElementById('message').innerHTML = 'Please enter your age.';
     }
+}
 </script>
 
 </body>
