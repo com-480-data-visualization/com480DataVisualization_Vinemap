@@ -433,8 +433,8 @@ function generateBoxPlotPrices(canvasId, label, data, backgroundColor, borderCol
 
     console.log('Generating box plot for:', data);
 
-    if (data.length < 10) {
-        console.log('Box plot displayed if at least 5 different scores.');
+    if (data.length < 3) {
+        console.log('Box plot displayed if at least 3 different scores.');
         document.getElementById('messagePrice').style.display = 'block';
         deleteBoxPlotPrices();
         return;
@@ -525,8 +525,8 @@ let boxPlotChartScores = null;
 function generateBoxPlotScores(canvasId, label, data, backgroundColor, borderColor) {
     const ctx = document.getElementById(canvasId).getContext('2d');
 
-    if (data.length < 10) {
-        console.log('Box plot displayed if at least 5 different scores.');
+    if (data.length < 3) {
+        console.log('Box plot displayed if at least 3 different scores.');
         document.getElementById('messageScore').style.display = 'block';
         deleteBoxPlotScores();
         return;
@@ -771,7 +771,7 @@ let wordCloudChart = null;
 function generateWordCloud(data) {
     console.log('Generating word cloud for:', data);
 
-    if (data.length < 10) {
+    if (data.length < 3) {
         console.log('Not enough data to generate word cloud.');
         document.getElementById('messageCloud').style.display = 'block';
         deleteWordCloud();
@@ -987,6 +987,12 @@ function applyFilters() {
 
 
 function resetSliders(dataReset = dataBeingUsed) {
+
+    if (dataReset.length < 2) {
+        console.error('No data available to reset sliders.');
+        return;
+    }
+
     const priceRange = calculateRange(dataReset, 'price');
     const pointsRange = calculateRange(dataReset, 'points');
     console.log('Data being used:', dataReset);
