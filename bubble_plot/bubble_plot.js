@@ -1,17 +1,23 @@
 const container = d3.select("#my_dataviz").node();
 
 // Get the width and height of the container
-const width = container.clientWidth;
-const height = container.clientHeight;
+const width = container.clientWidth;  // Use 100% of the container width
+const height = container.clientHeight; // Use 100% of the container height
 
+const margin = { top: 0, right: 0, bottom: 10, left: 0 }; // Define margins for axes and labels
 
+// Adjust width and height to account for margins
+const innerWidth = width - margin.left - margin.right;
+const innerHeight = height - margin.top - margin.bottom;
+
+// Create an SVG element with adjusted dimensions
 let svg = d3.select("#my_dataviz")
   .append("svg")
-  .attr("width", "100%")
-  .attr("height", "100%")
-  .append("g");
+    .attr("width", width)
+    .attr("height", height)
+    .append("g")
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);  // Offset the group element by the margins
 
-  svg.attr("viewBox", `0 0 ${width} ${height}`);
 
 let node;
 let simulation;
@@ -26,7 +32,7 @@ let dataSubset = [];
 let dataBeingUsed = [];
 
 // Function to get a random subset of data
-function getRandomSubset(data, size = 210) {
+function getRandomSubset(data, size = 300) {
     const shuffled = data.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, size);
 }
@@ -53,8 +59,8 @@ d3.csv("short_wines.csv").then(function(data) {
 function initializePlot(data) {
     nodeG.selectAll("*").remove(); // Clear the previous plot
 
-    // If length data > 210, getRandomSubset
-    if (data.length > 210) {
+    // If length data > 300, getRandomSubset
+    if (data.length > 300) {
         data = getRandomSubset(data);
     }
 
@@ -73,11 +79,11 @@ function initializePlot(data) {
     // Scales for the position of nodes
     xScale = d3.scaleLog()
         .domain(d3.extent(data, d => d.price))
-        .range([0.07*width + maxRadius, width - 0.05*width - maxRadius]); // Adjusted for max node radius
+        .range([0.07*innerWidth + maxRadius, innerWidth - 0.05*innerWidth - maxRadius]); // Adjusted for max node radius
 
     yScale = d3.scaleLinear()
         .domain(d3.extent(data, d => d.points))
-        .range([height - 0.078*height - maxRadius, 0 + maxRadius]); // Inverted and adjusted for max node radius
+        .range([innerHeight - 0.05*innerHeight - maxRadius, 0 + maxRadius]); // Inverted and adjusted for max node radius
 
     svg.selectAll(".x-axis").remove();
     svg.selectAll(".y-axis").remove();
@@ -89,7 +95,7 @@ function initializePlot(data) {
 
     const xAxisG = svg.append("g")
         .attr("class", "x-axis")
-        .attr("transform", `translate(0,${height - 40})`)
+        .attr("transform", `translate(0,${innerHeight - 40})`)
         .call(xAxis);
 
     // Rotate x-axis tick labels for better readability
@@ -112,37 +118,57 @@ function initializePlot(data) {
 
 
 function enterNodes(data) {
+    // Append y-axis to the SVG
     svg.append("g")
         .attr("class", "y-axis")
         .attr("transform", `translate(40,0)`)
         .call(yAxis);
 
-    function updateDetailPanel(d) {
-        const detailPanel = d3.select(".detail-panel");
-
-        // Update the table with the new data
-        detailPanel.select("#country-value").text(d.country);
-        detailPanel.select("#description-value").text(d.description);
-        detailPanel.select("#designation-value").text(d.designation);
-        detailPanel.select("#points-value").text(d.points);
-        detailPanel.select("#price-value").text(`$${d.price}`);
-        detailPanel.select("#province-value").text(d.province);
-        detailPanel.select("#title-value").text(d.title);
-        detailPanel.select("#variety-value").text(d.variety);
-        detailPanel.select("#winery-value").text(d.winery);
-        
-        // Ensure the panel is visible
-        detailPanel.style("opacity", 1);
-    }
+    var tooltip = d3.select("#tooltip");
 
     var mouseover = function(event, d) {
-        updateDetailPanel(d);
+        // Get the dimensions of the viewport
+        var screenWidth = window.innerWidth;
+        var screenHeight = window.innerHeight;
+        var tooltipWidth = tooltip.node().getBoundingClientRect().width;
+        var tooltipHeight = tooltip.node().getBoundingClientRect().height;
+
+        // Set tooltip horizontal position to always be to the right of the cursor
+        var tooltipX = event.pageX + 20; // Offset by 20px to avoid overlapping the cursor
+        if (tooltipX + tooltipWidth > screenWidth) {
+            // If the tooltip would go out of the screen to the right, adjust it to the left of the cursor
+            tooltipX = event.pageX - tooltipWidth - 20;
+        }
+
+        // Set tooltip vertical position
+        var tooltipY = event.pageY + 20; // Offset slightly below the cursor
+        if (tooltipY + tooltipHeight > screenHeight) {
+            // If the tooltip would go out of the screen at the bottom, adjust it above the cursor
+            tooltipY = event.pageY - tooltipHeight - 20;
+        }
+
+        tooltip.style("opacity", 1)
+               .style("left", tooltipX + "px")
+               .style("top", tooltipY + "px");
+
+        // Update tooltip content
+        tooltip.select("#tooltip-title").html(`${d.title}`);
+        tooltip.select("#tooltip-winery").html(`<strong>Winery:</strong> ${d.winery}`);
+        tooltip.select("#tooltip-country").html(`<strong>Country:</strong> ${d.country}`);
+        tooltip.select("#tooltip-province").html(`<strong>Province:</strong> ${d.province}`);
+        tooltip.select("#tooltip-price").html(`<strong>Price:</strong> $${d.price}`);
+        tooltip.select("#tooltip-points").html(`<strong>Points:</strong> ${d.points}`);
+        tooltip.select("#tooltip-variety").html(`<strong>Variety:</strong> ${d.variety}`);
+        tooltip.select("#tooltip-designation").html(`<strong>Designation:</strong> ${d.designation}`);
+        tooltip.select("#tooltip-description").html(`<strong>Description:</strong> ${d.description}`);
+
         d3.select(this)
             .style("stroke", "black")
-            .style("stroke-width", 2);
+            .style("stroke-width", 2.5);
     };
-    
+
     var mouseleave = function(event, d) {
+        tooltip.style("opacity", 0);
         d3.select(this)
             .style("stroke", "black")
             .style("stroke-width", 1);
@@ -218,7 +244,7 @@ function startSimulation(data, size) {
     }
 
     simulation = d3.forceSimulation(data)
-        .force("center", d3.forceCenter(width / 2, height / 2))
+        .force("center", d3.forceCenter(innerWidth / 2, innerHeight / 2))
         .force("x", d3.forceX(d => xScale(d.price)).strength(0.1))
         .force("y", d3.forceY(d => yScale(d.points)).strength(0.1))
         .force("charge", d3.forceManyBody().strength(0.1))
@@ -230,11 +256,13 @@ function startSimulation(data, size) {
 
     function ticked() {
         node
-            .attr("cx", d => Math.max(40 + size(d.price), Math.min(width - 40 - size(d.price), d.x)))
-            .attr("cy", d => Math.max(40 + size(d.price), Math.min(height - 40 - size(d.price), d.y)));
+            .attr("cx", d => Math.max(40 + size(d.price), Math.min(innerWidth - 40 - size(d.price), d.x)))
+            .attr("cy", d => Math.max(5 + size(d.price), Math.min(innerHeight - 40 - size(d.price), d.y)));
     }
-
 }
+
+
+
 
 // RESET FILTER
 document.addEventListener('DOMContentLoaded', function() {
@@ -244,11 +272,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function removeFilter() {
     // Redraw the plot with all the data
-    console.log(`Width: ${width}, Height: ${height}`);
+    console.log(`Width: ${innerWidth}, Height: ${innerHeight}`);
     initializePlot(dataSubset);
     resetSliders();
     clearWineryDetailPanel();
     deleteWordCloud();
+    deleteBoxPlotScores();
+    deleteBoxPlotPrices();
 }
 
 
@@ -266,134 +296,12 @@ function resetShuffle() {
     resetSliders();
     clearWineryDetailPanel();
     deleteWordCloud();
+    deleteBoxPlotScores();
+    deleteBoxPlotPrices();
 }
 
 
 
-
-
-
-
-
-
-
-
-// Function to setup sliders with optimized event handling
-function setupSliders() {
-    if (!dataBeingUsed || dataBeingUsed.length === 0) {
-        console.error('No data available to setup sliders.');
-        return;
-    }
-
-    // Calculate and cache the price and points ranges
-    const priceRange = calculateRange(dataBeingUsed, 'price');
-    const pointsRange = calculateRange(dataBeingUsed, 'points');
-
-    // Setup price slider
-    setupSlider('priceSlider', priceRange, (values) => {
-        document.getElementById('priceDisplay').textContent = `Range: $${parseInt(values[0])} - $${parseInt(values[1])}`;
-        applyFilters();
-    });
-
-    // Setup points slider
-    setupSlider('pointsSlider', pointsRange, (values) => {
-        document.getElementById('pointsDisplay').textContent = `Range: ${parseInt(values[0])} - ${parseInt(values[1])}`;
-        applyFilters();
-    });
-}
-
-// Helper function to setup individual slider
-function setupSlider(elementId, range, onUpdate) {
-    const sliderElement = document.getElementById(elementId);
-    if (sliderElement.noUiSlider) {
-        sliderElement.noUiSlider.destroy();
-    }
-
-    // Ensure range values are numeric
-    if (isNaN(range.min) || isNaN(range.max)) {
-        console.error(`Invalid range for ${elementId}:`, range);
-        return;
-    }
-
-    noUiSlider.create(sliderElement, {
-        start: [range.min, range.max],
-        connect: true,
-        range: {
-            'min': range.min,
-            'max': range.max
-        }
-    });
-    sliderElement.noUiSlider.on('update', onUpdate);
-}
-
-// Helper function to calculate min and max range for a given field
-function calculateRange(data, field) {
-    const values = data.map(item => item[field]).filter(value => !isNaN(value)); // Filter out non-numeric values
-    return {
-        min: Math.min(...values),
-        max: Math.max(...values)
-    };
-}
-
-// Function to apply filters and update plot based on slider values
-function applyFilters() {
-    const priceSliderElement = document.getElementById('priceSlider');
-    const pointsSliderElement = document.getElementById('pointsSlider');
-
-    if (!priceSliderElement || !priceSliderElement.noUiSlider || !pointsSliderElement || !pointsSliderElement.noUiSlider) {
-        console.error('Sliders not initialized correctly.');
-        return;
-    }
-
-    const priceValues = priceSliderElement.noUiSlider.get();
-    const pointsValues = pointsSliderElement.noUiSlider.get();
-    const priceMin = parseInt(priceValues[0], 10);
-    const priceMax = parseInt(priceValues[1], 10);
-    const pointsMin = parseInt(pointsValues[0], 10);
-    const pointsMax = parseInt(pointsValues[1], 10);
-
-    const filteredData = dataBeingUsed.filter(d => {
-        return d.price >= priceMin && d.price <= priceMax &&
-               d.points >= pointsMin && d.points <= pointsMax;
-    });
-
-    enterNodes(filteredData);
-}
-
-
-
-function resetSliders() {
-    const priceRange = {
-        min: Math.min(...dataBeingUsed.map(d => d.price)),
-        max: Math.max(...dataBeingUsed.map(d => d.price))
-    };
-    const pointsRange = {
-        min: Math.min(...dataBeingUsed.map(d => d.points)),
-        max: Math.max(...dataBeingUsed.map(d => d.points))
-    };
-
-    // Reset price slider
-    var priceSlider = document.getElementById('priceSlider').noUiSlider;
-    priceSlider.updateOptions({
-        range: {
-            'min': priceRange.min,
-            'max': priceRange.max
-        }
-    });
-    priceSlider.set([priceRange.min, priceRange.max]);
-    document.getElementById('priceDisplay').textContent = `Range: $${priceRange.min} - $${priceRange.max}`;
-
-    // Reset points slider
-    var pointsSlider = document.getElementById('pointsSlider').noUiSlider;
-    pointsSlider.updateOptions({
-        range: {
-            'min': pointsRange.min,
-            'max': pointsRange.max
-        }
-    });
-    pointsSlider.set([pointsRange.min, pointsRange.max]);
-    document.getElementById('pointsDisplay').textContent = `Range: ${pointsRange.min} - ${pointsRange.max}`;
-}
 
 
 
@@ -435,7 +343,6 @@ let hideDropdownTimer;
             card.addEventListener('click', () => {
                 console.log(`Card for winery ${user.name} clicked`);
                 selectWinery(user.name);
-                setupSliders();
             });
             userCardContainer.append(card);
             count++;
@@ -462,9 +369,13 @@ function selectWinery(wineryName) {
     console.log('Winery Info:', wineryInfo);
 
     if (wineryInfo) {
-        updateWineryDetailPanel(wineryInfo.data);
+        document.getElementById('wineryDetailContainer').style.display = '';
+        document.getElementById('messageContainer').style.display = 'none';
+
         const filteredData = allData.filter(d => d.winery.toLowerCase() === wineryName.toLowerCase());
-        generateWordCloud(filteredData);
+
+        updateWineryDetailPanel(wineryInfo.data, filteredData);
+        resetSliders(filteredData); // Reset sliders to show all data
 
         // list of descriptions of filteredData
         const descriptions = filteredData.map(d => d.description);
@@ -478,7 +389,6 @@ function selectWinery(wineryName) {
         }
     } else {
         clearWineryDetailPanel();
-        deleteWordCloud();
     }
 }
 
@@ -487,65 +397,268 @@ function selectWinery(wineryName) {
 
 
 // Function to update the winery details panel
-function updateWineryDetailPanel(d) {
-    console.log("Updating detail panel with data:", d); // Debugging: log the data object
 
-    const detailPanel = d3.select(".detail-panel-2");
+// Function to update the winery details panel
+function updateWineryDetailPanel(row, filteredData) {
+    const prices = Array.isArray(row.prices) ? row.prices : row.prices.replace(/[{}]/g, "").split(",").map(price => parseFloat(price.trim()));
+    const scores = Array.isArray(row.scores) ? row.scores : row.scores.replace(/[{}]/g, "").split(",").map(score => parseInt(score.trim()));
 
-    detailPanel.select("#Winery-winery").text(d.winery);
-    detailPanel.select("#Country-winery").text(d.country.replace(/[{}'"]/g, "").split(",").map(country => country.trim()).join(", "));
-    detailPanel.select("#Number-winery").text(d.num_wines);
-    detailPanel.select("#Provinces-winery").text(d.provinces.replace(/[{}'"]/g, "").split(",").map(province => province.trim()).join(", "));
-    detailPanel.select("#MeanPrice-winery").text(d.mean_price ? `$${d.mean_price.toFixed(2)}` : "N/A");
-    detailPanel.select("#MinPrice-winery").text(d.min_price ? `$${d.min_price.toFixed(2)}` : "N/A");
-    detailPanel.select("#MaxPrice-winery").text(d.max_price ? `$${d.max_price.toFixed(2)}` : "N/A");
-    detailPanel.select("#MedianPrice-winery").text(d.median_price ? `$${d.median_price.toFixed(2)}` : "N/A");
-    detailPanel.select("#PriceStdDev-winery").text(d.price_std_dev ? d.price_std_dev.toFixed(2) : "N/A");
-    detailPanel.select("#MeanScore-winery").text(d.mean_score ? d.mean_score.toFixed(2) : "N/A");
-    detailPanel.select("#MinScore-winery").text(d.min_score ? d.min_score.toFixed(2) : "N/A");
-    detailPanel.select("#MaxScore-winery").text(d.max_score ? d.max_score.toFixed(2) : "N/A");
-    detailPanel.select("#MedianScore-winery").text(d.median_score ? d.median_score.toFixed(2) : "N/A");
-    detailPanel.select("#ScoreStdDev-winery").text(d.score_std_dev ? d.score_std_dev.toFixed(2) : "N/A");
-    detailPanel.select("#Designations-winery").text(d.designations.replace(/[{}'"]/g, "").split(",").map(designation => designation.trim()).join(", "));
-    detailPanel.select("#Varieties-winery").text(d.varieties.replace(/[{}'"]/g, "").split(",").map(variety => variety.trim()).join(", "));
+    // Rest of the code to update details panel
+    document.getElementById('wineryName').textContent = row.winery;
+    document.getElementById('countries').textContent = row.country.replace(/[{}'"]/g, "").split(",").map(c => c.trim()).join(", ");
+    document.getElementById('provinces').textContent = row.provinces.replace(/[{}'"]/g, "").split(",").map(p => p.trim()).join(", ");
+    document.getElementById('designations').textContent = row.designations.join(", ");
+    document.getElementById('varieties').textContent = row.varieties.join(", ");
+    document.getElementById('numWines').textContent = row.num_wines;
 
-    // Ensure the panel is visible
-    detailPanel.style("opacity", 1);
+    // Generate charts for prices and scores
+    generateBoxPlotPrices('priceChart', 'Prices', prices, 'rgba(255, 99, 132, 0.5)', 'rgba(255, 99, 132, 1)');
+    generateBoxPlotScores('scoreChart', 'Scores', scores, 'rgba(54, 162, 235, 0.5)', 'rgba(54, 162, 235, 1)');
+
+    // Word Cloud
+    generateWordCloud(filteredData);
 }
 
 
 
-function updateDetailPanel(d) {
-    const detailPanel = d3.select(".detail-panel");
-    
-    // Update the table with the new data
-    detailPanel.select("#country-value").text(d.country);
-    detailPanel.select("#description-value").text(d.description);
-    detailPanel.select("#designation-value").text(d.designation);
-    detailPanel.select("#points-value").text(d.points);
-    detailPanel.select("#price-value").text(`$${d.price}`);
-    detailPanel.select("#province-value").text(d.province);
-    detailPanel.select("#title-value").text(d.title);
-    detailPanel.select("#variety-value").text(d.variety);
-    detailPanel.select("#winery-value").text(d.winery);
-    
-    // Ensure the panel is visible
-    detailPanel.style("opacity", 1);
+
+
+
+
+
+let boxPlotChartPrices = null;
+
+function generateBoxPlotPrices(canvasId, label, data, backgroundColor, borderColor) {
+    const ctx = document.getElementById(canvasId).getContext('2d');
+
+    console.log('Generating box plot for:', data);
+
+    if (data.length < 10) {
+        console.log('Box plot displayed if at least 5 different scores.');
+        document.getElementById('messagePrice').style.display = 'block';
+        deleteBoxPlotPrices();
+        return;
+    }
+
+    document.getElementById('messagePrice').style.display = 'none';
+
+    // Calculate reasonable limits for the axes
+    const dataMin = Math.min(...data);
+    const dataMax = Math.max(...data);
+    const buffer = (dataMax - dataMin) * 0.02;  // Add 2% buffer to min and max for better visualization
+
+    // Delete the previous box plot chart if it exists
+    deleteBoxPlotPrices();
+
+    // Create the box plot chart
+    boxPlotChartPrices = new Chart2(ctx, {
+        type: 'horizontalBoxplot',  // Using horizontal boxplot type from the plugin
+        data: {
+            labels: [label],
+            datasets: [{
+                label: label,
+                backgroundColor: backgroundColor,
+                borderColor: borderColor,
+                borderWidth: 1,
+                outlierColor: '#999999',
+                data: [data],
+                barPercentage: 0.5, // Reduce the bar width
+                categoryPercentage: 0.5 // Reduce the category width
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,  // Maintain the aspect ratio to control height
+            legend: {
+                display: false  // Remove the legend
+            },
+            scales: {
+                xAxes: [{  // Now using xAxes because the box plot is horizontal
+                    ticks: {
+                        beginAtZero: true,
+                        min: dataMin - buffer,
+                        max: dataMax + buffer,
+                        padding: 5,  // Reduce the padding between ticks and chart
+                        callback: function(value, index, values) {
+                            // Skip the first and last ticks
+                            if (index === 0 || index === values.length - 1) {
+                                return '';
+                            }
+                            return value;
+                        }
+                    },
+                    gridLines: {
+                        display: false
+                    }
+                }],
+                yAxes: [{  // Adjust settings for y axis as this is now the category axis
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: {
+                        padding: -5  // Reduce the padding between ticks and chart
+                    }
+                }]
+            },
+            layout: {
+                padding: {
+                    left: 5,
+                    right: 5,
+                    top: 0,  // No top padding
+                    bottom: 0 // No bottom padding
+                }
+            }
+        }
+    });
 }
+
+function deleteBoxPlotPrices() {
+    if (boxPlotChartPrices) {
+        boxPlotChartPrices.destroy();
+        boxPlotChartPrices = null;
+    }
+}
+
+
+let boxPlotChartScores = null;
+
+function generateBoxPlotScores(canvasId, label, data, backgroundColor, borderColor) {
+    const ctx = document.getElementById(canvasId).getContext('2d');
+
+    if (data.length < 10) {
+        console.log('Box plot displayed if at least 5 different scores.');
+        document.getElementById('messageScore').style.display = 'block';
+        deleteBoxPlotScores();
+        return;
+    }
+
+    document.getElementById('messageScore').style.display = 'none';
+
+    // Calculate reasonable limits for the axes
+    const dataMin = Math.min(...data);
+    const dataMax = Math.max(...data);
+    const buffer = (dataMax - dataMin) * 0.02;  // Add 2% buffer to min and max for better visualization
+
+    // Delete the previous box plot chart if it exists
+    deleteBoxPlotScores();
+
+    // Create the box plot chart
+    boxPlotChartScores = new Chart2(ctx, {
+        type: 'horizontalBoxplot',  // Using horizontal boxplot type from the plugin
+        data: {
+            labels: [label],
+            datasets: [{
+                label: label,
+                backgroundColor: backgroundColor,
+                borderColor: borderColor,
+                borderWidth: 1,
+                outlierColor: '#999999',
+                data: [data],
+                barPercentage: 0.5, // Reduce the bar width
+                categoryPercentage: 0.5 // Reduce the category width
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,  // Maintain the aspect ratio to control height
+            legend: {
+                display: false  // Remove the legend
+            },
+            scales: {
+                xAxes: [{  // Now using xAxes because the box plot is horizontal
+                    ticks: {
+                        beginAtZero: true,
+                        min: dataMin - buffer,
+                        max: dataMax + buffer,
+                        padding: 5,  // Reduce the padding between ticks and chart
+                        callback: function(value, index, values) {
+                            // Skip the first and last ticks
+                            if (index === 0 || index === values.length - 1) {
+                                return '';
+                            }
+                            return value;
+                        }
+                    },
+                    gridLines: {
+                        display: false
+                    }
+                }],
+                yAxes: [{  // Adjust settings for y axis as this is now the category axis
+                    gridLines: {
+                        display: false
+                    },
+                    ticks: {
+                        padding: -5  // Reduce the padding between ticks and chart
+                    }
+                }]
+            },
+            layout: {
+                padding: {
+                    left: 5,
+                    right: 5,
+                    top: 0,  // No top padding
+                    bottom: 0 // No bottom padding
+                }
+            }
+        }
+    });
+}
+
+function deleteBoxPlotScores() {
+    if (boxPlotChartScores) {
+        boxPlotChartScores.destroy();
+        boxPlotChartScores = null;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 // Function to clear the winery details panel
 function clearWineryDetailPanel() {
-    const detailPanel = d3.select(".detail-panel-2");
-
-    detailPanel.selectAll("td").text('');
-
-    // Ensure the panel is hidden
-    detailPanel.style("opacity", 0);
+    document.getElementById('wineryDetailContainer').style.display = 'none';
+    document.getElementById('messageContainer').style.display = '';
+    deleteWordCloud();
+    deleteBoxPlotScores();
+    deleteBoxPlotPrices();
+    // Clear content from details panel elements
+    document.getElementById('wineryName').textContent = '';
+    document.getElementById('countries').textContent = '';
+    document.getElementById('provinces').textContent = '';
+    document.getElementById('designations').textContent = '';
+    document.getElementById('varieties').textContent = '';
+    document.getElementById('numWines').textContent = '';
 }
 
+window.onload = function() {
+    clearWineryDetailPanel(); // Call this function on page load to set initial state
+}
 
 
 
@@ -593,38 +706,39 @@ d3.csv("wineries_info.csv").then(data => {
 
         const card = userCardTemplate.content.cloneNode(true).children[0];
         const header = card.querySelector("[data-header]");
-        const subtext = card.querySelector("[data-subtext]"); // Subtext for countries
+        const subtext = card.querySelector("[data-subtext]");
 
         header.textContent = d.winery;
 
         // Extract and clean up countries
-        let countries = d.country.replace(/[{}'"]/g, "").split(","); // Remove braces, single and double quotes, and split by comma
-        countries = countries.map(country => country.trim()); // Trim whitespace from each country
+        let countries = d.country.replace(/[{}'"]/g, "").split(",");
+        countries = countries.map(country => country.trim());
         if (countries.length > 10) {
-          countries = countries.slice(0, 10); 
+          countries = countries.slice(0, 10);
         }
-        subtext.textContent = countries.join(", "); // Join countries with a comma
-        subtext.style.color = 'lightgray'; // Set the color to light gray for the countries
+        subtext.textContent = countries.join(", ");
+        subtext.style.color = 'lightgray';
 
-        // Parse numerical values
+        // Parse prices and scores arrays
+        const prices = d.prices.replace(/[{}]/g, "").split(",").map(price => parseFloat(price.trim()));
+        const scores = d.scores.replace(/[{}]/g, "").split(",").map(score => parseInt(score.trim()));
+
+        // Extract and clean up designations and varieties
+        let designations = d.designations.replace(/[{}'"]/g, "").split(",").map(designation => designation.trim());
+        let varieties = d.varieties.replace(/[{}'"]/g, "").split(",").map(variety => variety.trim());
+
         const parsedData = {
             ...d,
-            min_price: parseFloat(d.min_price),
-            max_price: parseFloat(d.max_price),
-            mean_price: parseFloat(d.mean_price),
-            median_price: parseFloat(d.median_price),
-            price_std_dev: parseFloat(d.price_std_dev),
-            min_score: parseFloat(d.min_score),
-            max_score: parseFloat(d.max_score),
-            mean_score: parseFloat(d.mean_score),
-            median_score: parseFloat(d.median_score),
-            score_std_dev: parseFloat(d.score_std_dev),
+            prices: prices,
+            scores: scores,
+            designations: designations,
+            varieties: varieties,
             num_wines: parseInt(d.num_wines)
         };
 
-        return { 
-            name: d.winery, 
-            element: card, 
+        return {
+            name: d.winery,
+            element: card,
             data: parsedData
         }; // Store card element and parsed data in the user object
     });
@@ -651,75 +765,243 @@ d3.csv("wineries_info.csv").then(data => {
 
 // WORD CLOUD
 
+
+let wordCloudChart = null;
+
 function generateWordCloud(data) {
+    console.log('Generating word cloud for:', data);
+
+    if (data.length < 10) {
+        console.log('Not enough data to generate word cloud.');
+        document.getElementById('messageCloud').style.display = 'block';
+        deleteWordCloud();
+        return;
+    }
+
+    document.getElementById('messageCloud').style.display = 'none';
+
+    // Access the canvas element and its size
+    const canvasElement = document.getElementById("wordCloud");
+    const ctx = canvasElement.getContext("2d");
+
     let wordCounts = {};
-    const widthwc = 500; // Smaller width
-    const heightwc = 300; // Smaller height
-
-    const customStopWords = ['its', 'drink', 'wine', 'winery', 'wines', 'wineries', 'shows', 'show', 'price', 'body', 'bodied'];
-
+    const customStopWords = ['its', 'drink', 'wine', 'winery', 'wines', 'wineries', 'shows', 'show', 'price', 'body', 'bodied', 'may'];
 
     // Process each item's description
     data.forEach(item => {
-        // Split description into words, remove punctuation, and convert to lowercase
         let words = item.description.replace(/[^\w\s]|_/g, "").replace(/\s+/g, " ").toLowerCase().split(" ");
-
-        // Remove stopwords using the stopword library's default English stopwords
-        let filteredWords = sw.removeStopwords(words);
+        let filteredWords = sw.removeStopwords(words); // Ensure `sw` is defined or imported correctly
 
         // Count each word's frequency
         filteredWords.forEach(word => {
-            if (!customStopWords.includes(word) && word.length > 1) {  // Filter out single characters
+            if (!customStopWords.includes(word) && word.length > 1) {
                 wordCounts[word] = (wordCounts[word] || 0) + 1;
             }
         });
     });
 
+    console.log('Word counts:', wordCounts);
+
+    // Step 1: Sort the entries by their values in descending order
+    const sortedEntries = Object.entries(wordCounts).sort((a, b) => b[1] - a[1]);
+
+    // Step 2: Select the top 50 entries
+    const topEntries = sortedEntries.slice(0, 50);
+
+    // Step 3: Create a new object with the top 50 entries
+    const topWordCounts = Object.fromEntries(topEntries);
+
+    // Step 4: Define the desired output range
+    const minRange = 10;
+    const maxRange = 30;
+
+    // Step 5: Extract the values
+    const values = Object.values(topWordCounts);
+
+    // Step 6: Compute the logarithm of each value
+    const logValues = values.map(value => Math.log(value));
+
+    // Step 7: Find the min and max of the logarithmic values
+    const minLogValue = Math.min(...logValues);
+    const maxLogValue = Math.max(...logValues);
+
+    // Step 8: Normalize the log values to a 0-1 range
+    const normalizedLogValues = logValues.map(logValue => (logValue - minLogValue) / (maxLogValue - minLogValue));
+
+    // Step 9: Scale the normalized values to the desired range (25 to 50)
+    const scaledValues = normalizedLogValues.map(normValue => minRange + normValue * (maxRange - minRange));
+
+    // Step 10: Create a new object with the scaled values
+    const scaledWordCounts = {};
+    Object.keys(topWordCounts).forEach((key, index) => {
+        scaledWordCounts[key] = scaledValues[index];
+    });
+
+    console.log(scaledWordCounts);
+
     // Convert word counts to an array, sort by frequency, and take the top 20
-    const wordEntries = Object.entries(wordCounts)
-        .map(([text, size]) => ({text, size}))
-        .sort((a, b) => b.size - a.size)
-        .slice(0, 20);  // Only include the top 20 words
+    const words = Object.entries(scaledWordCounts)
+        .map(([key, value]) => ({ text: key, size: value }))
+        .sort((a, b) => b.size - a.size);
 
-    // Setup D3 color scale
-    const color = d3.scaleOrdinal(d3.schemeCategory10);
+    console.log('Top words:', words.map(word => word.text));
+    console.log('Word sizes:', words.map(word => word.size));
 
-    // Setup the word cloud layout
-    const layout = d3.layout.cloud()
-        .size([widthwc, heightwc])
-        .words(wordEntries)
-        .padding(5)  // Increased padding to prevent overlap
-        .rotate(() => ~~(Math.random() * 2) * 90)
-        .font("Impact")
-        .fontSize(d => Math.max(20, Math.min(d.size * 1.5, 60)))  // Dynamic font size scaling
-        .on("end", draw);
+    // Delete the previous word cloud chart if it exists
+    deleteWordCloud();
 
-    layout.start();
+    // Create the word cloud chart
+    wordCloudChart = new Chart(ctx, {
+        type: 'wordCloud',
+        data: {
+            labels: words.map(word => word.text),
+            datasets: [{
+                label: 'Word Frequency',
+                data: words.map(word => word.size), // Size represents font size in pixels
+            }]
+        },
+        options: {
+            plugins: {
+                legend: { display: false },
+                tooltip: { enabled: false }
+            }
+        }
+    });
+}
 
-    function draw(words) {
-        const svg = d3.select("#word-cloud").append("svg")
-            .attr("width", widthwc)
-            .attr("height", heightwc)
-            .append("g")
-            .attr("transform", "translate(250,150)");  // Adjusted centering for the smaller size
-
-        svg.selectAll("text")
-            .data(words)
-            .enter().append("text")
-            .style("font-family", "Impact")
-            .style("fill", (d, i) => color(i))
-            .attr("text-anchor", "middle")
-            .attr("transform", d => `translate(${d.x}, ${d.y})rotate(${d.rotate})`)
-            .text(d => d.text);
+function deleteWordCloud() {
+    if (wordCloudChart) {
+        wordCloudChart.destroy();
+        wordCloudChart = null;
     }
 }
 
 
-function deleteWordCloud() {
-    const svg = d3.select("#word-cloud svg");
-    svg.remove();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// SLIDERS
+// --------------------
+
+// Function to setup sliders with optimized event handling
+function setupSliders() {
+    if (!dataBeingUsed || dataBeingUsed.length === 0) {
+        console.error('No data available to setup sliders.');
+        return;
+    }
+
+    // Calculate and cache the price and points ranges
+    const priceRange = calculateRange(dataBeingUsed, 'price');
+    const pointsRange = calculateRange(dataBeingUsed, 'points');
+
+    // Setup price slider with updated display elements
+    setupSlider('priceSlider', priceRange, (values) => {
+        document.getElementById('priceMin').textContent = `Price:     $${parseInt(values[0])}`;
+        document.getElementById('priceMax').textContent = `$${parseInt(values[1])}`;
+        applyFilters();
+    });
+
+    // Setup points slider with updated display elements
+    setupSlider('pointsSlider', pointsRange, (values) => {
+        document.getElementById('pointsMin').textContent = `Points:     ${parseInt(values[0])}`;
+        document.getElementById('pointsMax').textContent = `${parseInt(values[1])}`;
+        applyFilters();
+    });
+}
+
+// Helper function to setup individual slider
+function setupSlider(elementId, range, onUpdate) {
+    const sliderElement = document.getElementById(elementId);
+    if (sliderElement.noUiSlider) {
+        sliderElement.noUiSlider.destroy();
+    }
+
+    // Ensure range values are numeric
+    if (isNaN(range.min) || isNaN(range.max)) {
+        console.error(`Invalid range for ${elementId}:`, range);
+        return;
+    }
+
+    noUiSlider.create(sliderElement, {
+        start: [range.min, range.max],
+        connect: true,
+        step: 1,
+        range: {
+            'min': range.min,
+            'max': range.max
+        }
+        // format: wNumb({
+        //     decimals: 0 // Ensures no decimals
+        // })
+    });
+    sliderElement.noUiSlider.on('update', onUpdate);
+}
+
+// Helper function to calculate min and max range for a given field
+function calculateRange(data, field) {
+    const values = data.map(item => item[field]).filter(value => !isNaN(value)); // Filter out non-numeric values
+    return {
+        min: Math.min(...values),
+        max: Math.max(...values)
+    };
+}
+
+// Function to apply filters and update plot based on slider values
+function applyFilters() {
+    const priceSliderElement = document.getElementById('priceSlider');
+    const pointsSliderElement = document.getElementById('pointsSlider');
+
+    if (!priceSliderElement || !priceSliderElement.noUiSlider || !pointsSliderElement || !pointsSliderElement.noUiSlider) {
+        console.error('Sliders not initialized correctly.');
+        return;
+    }
+
+    const priceValues = priceSliderElement.noUiSlider.get();
+    const pointsValues = pointsSliderElement.noUiSlider.get();
+    const priceMin = parseInt(priceValues[0], 10);
+    const priceMax = parseInt(priceValues[1], 10);
+    const pointsMin = parseInt(pointsValues[0], 10);
+    const pointsMax = parseInt(pointsValues[1], 10);
+
+    const filteredData = dataBeingUsed.filter(d => {
+        return d.price >= priceMin && d.price <= priceMax &&
+               d.points >= pointsMin && d.points <= pointsMax;
+    });
+
+    enterNodes(filteredData);
 }
 
 
 
+function resetSliders(dataReset = dataBeingUsed) {
+    const priceRange = calculateRange(dataReset, 'price');
+    const pointsRange = calculateRange(dataReset, 'points');
+    console.log('Data being used:', dataReset);
 
+    updateSlider('priceSlider', priceRange);
+    updateSlider('pointsSlider', pointsRange);
+}
+
+function updateSlider(elementId, range) {
+    var slider = document.getElementById(elementId).noUiSlider;
+    slider.updateOptions({
+        range: {
+            'min': range.min,
+            'max': range.max
+        }
+    }, true); // True to reset the slider handles as well
+    slider.set([range.min, range.max]);
+}
