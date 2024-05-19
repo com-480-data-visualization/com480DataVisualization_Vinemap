@@ -68,11 +68,25 @@ document.addEventListener("DOMContentLoaded", function() {
         modal.style.display = "block";
     }, 3000); // Change 10000 to the number of milliseconds you want to delay
 
+<<<<<<< HEAD
     var input = document.getElementById('ageInput');
     input.addEventListener("keyup", function(event) {
         if (event.key === "Enter") {
             event.preventDefault();
             verifyAge();
+=======
+    // Delay the modal display by 10 seconds (10000 milliseconds)
+    setTimeout(showModal, 10000);
+
+    function verifyAge() {
+        var age = document.getElementById('ageInput').value;
+        if (age >= 18) {
+            window.location.href = 'vinemap.html';
+        } else if (age !== '') {
+            document.getElementById('message').innerHTML = 'Come back a few years later :)';
+        } else {
+            document.getElementById('message').innerHTML = 'Please enter your age.';
+>>>>>>> a491cb373e0d146e7049baabf8ca639ae31f6a7d
         }
     });
 });

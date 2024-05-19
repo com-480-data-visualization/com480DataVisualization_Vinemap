@@ -1,0 +1,14 @@
+{
+  "name": "36cfeeb047942b62",
+  "main": "36cfeeb047942b62@1577.js",
+  "version": "1577.0.0",
+  "homepage": "https://observablehq.com/d/36cfeeb047942b62",
+  "author": {
+    "name": "Tanya Shapiro",
+    "url": "https://observablehq.com/@tashapiro"
+  },
+  "type": "module",
+  "peerDependencies": {
+    "@observablehq/runtime": "4 - 5"
+  }
+}
