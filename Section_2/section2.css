@@ -29,11 +29,11 @@ body {
 }
 
 #page1 {
-    background: linear-gradient(to right, #f4c3ae 0%, #b57f7c 70%);
+    background: linear-gradient(to right, #5e3747  0%, #3e051f 100%);
 }
 
 #page2 {
-    background: linear-gradient(to right, #b57f7c 30%, #f4c3ae 100%);
+    background: linear-gradient(to right, #3e051f 0%, #5e3747 100%);
 }
 
 .text {
@@ -41,6 +41,7 @@ body {
     margin: 20px;
     line-height: 1.6;
     font-weight: 4000;
+    padding: 0 80px; /* Add padding to the left and right */
 }
 
 .hidden {
@@ -86,4 +87,5 @@ body {
     background-color: #bbb;
     border-radius: 50%;
     display: inline-block;
+    cursor: pointer;
 }

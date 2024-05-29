@@ -68,6 +68,15 @@
                     dot.style.backgroundColor = index === pageIndex ? '#000' : '#bbb';
                 });
             });
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    container.scrollTo({
+                        left: index * window.innerWidth,
+                        behavior: 'smooth'
+                    });
+                });
+            });
         });
     </script>
 </body>
