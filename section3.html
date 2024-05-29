@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section 3</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #5e3747, #000000); /* Dark background color with gradient */
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Hide the default horizontal scrollbar */
+        }
+        .container {
+            display: flex;
+            overflow-x: hidden; /* Hide the default scrollbar */
+            scroll-behavior: smooth; /* Smooth scrolling */
+            height: 100vh; /* Full viewport height */
+        }
+        .section {
+            min-width: 100vw; /* Each section takes full viewport width */
+            height: 100vh; /* Each section takes full viewport height */
+            padding: 0; /* Remove padding */
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pagination {
+            position: fixed;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .dot {
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .dot.active {
+            background-color: #717171;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* Remove border */
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <div class="section">
+            <h1>Section 1</h1>
+            <p>Content for section 1</p>
+        </div>
+        <div class="section">
+            <iframe src="final_map.html"></iframe>
+        </div>
+        <div class="section">
+            <h1>Section 3</h1>
+            <p>Content for section 3</p>
+        </div>
+    </div>
+    <div class="pagination">
+        <span class="dot" onclick="scrollToSection(0)"></span>
+        <span class="dot" onclick="scrollToSection(1)"></span>
+        <span class="dot" onclick="scrollToSection(2)"></span>
+    </div>
+
+    <script>
+        function scrollToSection(index) {
+            const container = document.getElementById('container');
+            const sectionWidth = container.children[index].offsetWidth;
+            container.scrollTo({
+                left: sectionWidth * index,
+                behavior: 'smooth'
+            });
+            setActiveDot(index);
+        }
+
+        function setActiveDot(index) {
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        // Set the first dot as active on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            setActiveDot(0);
+        });
+    </script>
+</body>
+</html>
