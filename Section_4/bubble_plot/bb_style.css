@@ -1,9 +1,37 @@
 /* General body styling */
-body {
+/* body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   background: #f4f4f4;
+} */
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Garamond', serif; /* Example of a serif font that might fit a winery theme */
+}
+
+body {
+  overflow: hidden; /* Hide the default scrollbar */
+  background: linear-gradient(to right, #3e051f 0%, #5e3747 100%);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+  align-items: center;
+  justify-content: center;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none; /* Remove border */
 }
 
 
@@ -19,10 +47,10 @@ body {
   margin: 50px auto; /* Centering horizontally with top margin for spacing */
   width: 90%; /* Responsive width with margins */
   height: 700px; /* Height adjusts to content */
-  background-color: #ffffff; /* Clean white background */
-  border: 2px solid #d6d6d6; /* Subtle border color */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow for 3D effect */
-  border-radius: 12px; /* Smooth rounded corners */
+  /* background-color: #bd8d6d; */
+  /* border: 10px solid #f4d6c2; Changed to a muted bronze tone */
+  /* box-shadow: 0 4px 15px rgba(0,0,0,0.15); Deeper shadow for more depth */
+  /* border-radius: 12px; Smooth rounded corners */
   box-sizing: border-box; /* Border and padding included in width/height */
   display: flex; /* Flexbox layout for internal elements */
   padding: 8px; /* Padding for internal spacing */
@@ -33,17 +61,31 @@ body {
 }
 
 
+
+
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 /* COLUMN 1 */
 /* --------------------------------------------------------- */
 /* --------------------------------------------------------- */
 
+#column-1, #column-2 {
+  background-color: #EDE7D9; /* A light, sandy color appropriate for wine themes */
+  border: 1px solid #A19276; /* Harmonizing with a bronze-like tone */
+}
+
+.control-panel, .control-and-details, #wineryDetailContainer, .chartContainer, .wordContainer {
+  background-color: #A49694;
+  border-color: #A19276;
+}
+
+
+
 #column-1 {
   flex: 1; /* Each column takes equal space in the flex container */
   height: 100%; /* Each column takes the full height of the wrapper */
-  background-color: #f0f0f0; /* Light gray fill */
-  border: 2px solid #d6d6d6; /* Subtle border color matching the wrapper */
+  /* background-color: #f0f0f0;  Light gray fill */ 
+  /* border: 2px solid #d6d6d6; Subtle border color matching the wrapper */
   border-radius: 12px; /* Smooth rounded corners matching the wrapper */
   box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow for 3D effect matching the wrapper */
   margin: 10px; /* Increased margin for consistent spacing within the wrapper */
@@ -70,7 +112,7 @@ body {
   grid-template-columns: 1fr 1fr 4fr;
   gap: 0px 20px;
   width: 100%;
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
   border: 2px solid #d6d6d6;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -229,8 +271,8 @@ body {
 #column-2 {
   flex: 1; /* Each column takes equal space in the flex container */
   height: 100%; /* Each column takes the full height of the wrapper */
-  background-color: #f0f0f0; /* Light gray fill */
-  border: 2px solid #d6d6d6; /* Subtle border color matching the wrapper */
+  /* background-color: #f0f0f0; Light gray fill */
+  /* border: 2px solid #d6d6d6; Subtle border color matching the wrapper */
   border-radius: 12px; /* Smooth rounded corners matching the wrapper */
   margin: 10px; /* Increased margin for consistent spacing within the wrapper */
   padding: 10px; /* Padding inside each column for content spacing, matching the wrapper */
@@ -252,7 +294,7 @@ body {
 .control-and-details {
   width: 100%;
   height: 11%;
-  background-color: #f0f0f0; /* Light gray fill */
+  /* background-color: #f0f0f0; Light gray fill */
   border: 2px solid #d6d6d6; /* Subtle border color matching the wrapper */
   border-radius: 12px; /* Smooth rounded corners matching the wrapper */
   box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Soft shadow for 3D effect matching the wrapper */
@@ -324,7 +366,7 @@ input[type="search"]:focus {
   justify-content: flex-start;  /* Align items to the start of the flex-direction */
   width: 100%;
   height: calc(80% - 40px); /* Adjusted height accounting for padding */
-  background-color: #f0f0f0; /* Light gray fill, matching other elements */
+  /* background-color: #f0f0f0; Light gray fill, matching other elements */
   border: 2px solid #d6d6d6; /* Subtle border color, consistent with the overall design */
   border-radius: 12px; /* Smooth rounded corners, in line with other elements */
   padding: 5px; /* Consistent padding for interior spacing */
@@ -398,7 +440,7 @@ input[type="search"]:focus {
 .chartContainer {
   border: 2px solid #d6d6d6;
   border-radius: 12px;
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   margin-top: 3px;
   margin-bottom: 3px;
@@ -422,7 +464,7 @@ input[type="search"]:focus {
   flex-grow: 1;  /* Grow to take remaining space */
   border: 2px solid #d6d6d6;
   border-radius: 12px;
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   margin-top: 3px;
   margin-bottom: 3px;

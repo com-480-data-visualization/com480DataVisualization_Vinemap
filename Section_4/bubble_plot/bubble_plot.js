@@ -72,9 +72,11 @@ function initializePlot(data) {
 
     const maxRadius = 10;  // Maximum node radius
     size = d3.scaleLog()
-        .domain([Math.max(0.1, d3.min(data, d => d.price)), d3.max(data, d => d.price)])
+        .domain([Math.max(0.1, d3.max(data, d => d.price)), d3.min(data, d => d.price)])
         .range([3, maxRadius])
         .clamp(true);
+
+        
 
     // Scales for the position of nodes
     xScale = d3.scaleLog()
@@ -785,7 +787,7 @@ function generateWordCloud(data) {
     const ctx = canvasElement.getContext("2d");
 
     let wordCounts = {};
-    const customStopWords = ['its', 'drink', 'wine', 'winery', 'wines', 'wineries', 'shows', 'show', 'price', 'body', 'bodied', 'may'];
+    const customStopWords = ['its', 'drink', 'wine', 'winery', 'wines', 'wineries', 'shows', 'show', 'price', 'body', 'bodied', 'may', 'flavor', 'flavors', 'aroma', 'aromas', 'finish'];
 
     // Process each item's description
     data.forEach(item => {
