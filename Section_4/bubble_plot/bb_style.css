@@ -74,10 +74,16 @@ iframe {
   border: 1px solid #A19276; /* Harmonizing with a bronze-like tone */
 }
 
-.control-panel, .control-and-details, #wineryDetailContainer, .chartContainer, .wordContainer {
+.control-panel, .control-and-details {
   background-color: #A49694;
   border-color: #A19276;
 }
+
+#wineryDetailContainer, .chartContainer, .wordContainer {
+  background-color: #d7cdcb;
+  border-color: #A19276;
+}
+
 
 
 

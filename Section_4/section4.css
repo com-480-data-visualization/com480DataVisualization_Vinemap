@@ -37,12 +37,12 @@ body {
 }
 
 .text {
-    font-size: 1.2em;
-    margin: 20px;
-    line-height: 1.6;
-    font-weight: 4000;
-    padding: 0 80px; /* Add padding to the left and right */
+    color: #f1e1d1; /* This is the hex code for cream color */
+    font-size: 25px; /* Adjust the size as needed */
+    text-align: center; /* Center aligns the text */
+    padding: 90px;
 }
+
 
 .hidden {
     display: inline-block;

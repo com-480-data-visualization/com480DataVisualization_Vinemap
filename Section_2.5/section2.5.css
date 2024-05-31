@@ -132,6 +132,7 @@ body {
     position: relative;
     z-index: 2; /* Ensure iframe is below text */
     pointer-events: auto; /* Ensure iframe is interactive */
+    overflow: hidden;
 }
 
 
