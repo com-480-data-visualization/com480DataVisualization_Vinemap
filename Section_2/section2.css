@@ -41,7 +41,8 @@ body {
     margin: 20px;
     line-height: 1.6;
     font-weight: 4000;
-    padding: 0 80px; /* Add padding to the left and right */
+    padding: 0 90px; /* Add padding to the left and right */
+    color: #f1e1d1;
 }
 
 .hidden {

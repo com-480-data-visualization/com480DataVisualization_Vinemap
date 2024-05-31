@@ -49,12 +49,14 @@ body {
     color: #f1e1d1; /* Light cream color */
     font-weight: bold;
     text-indent: 0; /* Ensure no text indentation */
+    font-family: "Major Mono Display", sans-serif;
 }
 
 .static-text {
     text-align: center;
     width: 80%; /* control width of text box */
     border-radius: 10px;
+    font-family: "Major Mono Display", sans-serif;
 }
 
 .hidden {
