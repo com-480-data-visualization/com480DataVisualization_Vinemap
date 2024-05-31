@@ -11,12 +11,12 @@ html, body {
 
 .container {
     display: flex;
-    flex-direction: row;
-    width: 100vw;
-    height: 100vh; /* Fixed height to match the viewport */
-    overflow-x: scroll; /* Allow horizontal scrolling */
+    overflow-x: scroll;
     overflow-y: hidden; /* Disable vertical scrolling */
-    scroll-snap-type: x mandatory; /* Improves the scrolling experience */
+    scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+    position: relative;
 }
 
 
