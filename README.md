@@ -7,7 +7,7 @@
 | Carlos CAPELL COLLADO | 377896 |
 | Mohammed KERRAZ | 288922 |
 
-[Milestone 1](milestone_1/) • [Milestone 2](milestone_2/) • [Milestone 3](#milestone-3)
+[Milestone 1](milestone_1/) • [Milestone 2](milestone_2/) • [Milestone 3](milestone_3/)
 
 ## Milestone 1 (29th March, 5pm)
 
@@ -40,6 +40,8 @@ The prototype of the website is [https://sulcay.github.io](https://sulcay.github
 ## Milestone 3 (31st May, 5pm)
 
 **80% of the final grade**
+
+[Milestone 3](milestone_3/)
 
 Screencast: https://youtu.be/mWUhUWoSfNU
 
