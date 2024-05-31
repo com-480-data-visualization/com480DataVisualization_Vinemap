@@ -41,6 +41,8 @@ The prototype of the website is [https://sulcay.github.io](https://sulcay.github
 
 **80% of the final grade**
 
+Screencast: [https://youtu.be/mWUhUWoSfNU]
+
 
 ## Late policy
 
