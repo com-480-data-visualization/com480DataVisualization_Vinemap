@@ -1,18 +1,24 @@
-body {
+html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
     font-family: Arial, sans-serif;
+    width: 100vw;
+    height: 100vh;
 }
+
+
 
 .container {
     display: flex;
     overflow-x: scroll;
+    overflow-y: hidden; /* Disable vertical scrolling */
     scroll-snap-type: x mandatory;
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */
     position: relative;
 }
+
 
 .container::-webkit-scrollbar {
     display: none;  /* Safari and Chrome */
@@ -145,4 +151,23 @@ body {
     position: relative;
     z-index: 2; /* Ensure iframe is below text */
     pointer-events: auto; /* Ensure iframe is interactive */
+}
+
+
+#page7 {
+    position: relative; /* Ensure this container maintains relative positioning */
+    width: 100%;
+    height: 100%;
+    display: flex; /* Maintains the flex layout for alignment */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 20px; /* Adds padding inside #page7, effectively creating a margin around the iframe */
+    box-sizing: border-box; /* Includes padding in the width and height calculations */
+}
+
+.map iframe {
+    width: 1350px; /* Takes full width of the container minus padding */
+    height: 700px; /* Takes full height of the container minus padding */
+    border: none; /* Removes border */
+    
 }

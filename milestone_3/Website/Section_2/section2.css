@@ -8,6 +8,7 @@ body {
 .container {
     display: flex;
     overflow-x: scroll;
+    overflow-y: hidden; /* Disable vertical scrolling */
     scroll-snap-type: x mandatory;
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */
