@@ -38,7 +38,7 @@ body {
 }
 
 #page3, #page5, #page7 {
-    background-color: #f5f5dc; /* light cream color */
+    background: linear-gradient(to right, #5e3747  0%, #3e051f 100%);
 }
 
 .text, .animated-text {
@@ -84,7 +84,7 @@ body {
 .rotated-svg {
     transform: rotate(90deg);
     transform-origin: center;
-    width: 50%;
+    width: 70%;
     height: auto;
 }
 
@@ -120,13 +120,24 @@ body {
     height: 200px;
     z-index: 100;
     margin-bottom: 400px;
-    overflow: visible;  /* Make sure overflow is not hidden */
+    overflow: visible;
+    clip-path: inset(0px 0px -450px 0px); /* Trim 20px from the bottom */
 }
 
 
 .bubble-plot iframe {
     width: 1500px; /* 100% of the .page width */
     height: 800px; /* 100% of the .page height */
+    border: none; /* Removes the border around the iframe */
+    position: relative;
+    z-index: 2; /* Ensure iframe is below text */
+    pointer-events: auto; /* Ensure iframe is interactive */
+}
+
+
+.text-plots iframe {
+    width: 160vh; /* 100% of the .page width */
+    height: 80vh; /* 100% of the .page height */
     border: none; /* Removes the border around the iframe */
     position: relative;
     z-index: 2; /* Ensure iframe is below text */
