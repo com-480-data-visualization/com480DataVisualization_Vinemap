@@ -45,6 +45,8 @@ The prototype of the website is [https://sulcay.github.io](https://sulcay.github
 
 Screencast: https://youtu.be/mWUhUWoSfNU
 
+To open the website, Open with Live Server the file main.html
+
 
 ## Late policy
 
