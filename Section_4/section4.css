@@ -8,6 +8,7 @@ body {
 .container {
     display: flex;
     overflow-x: scroll;
+    overflow-y: hidden; /* Disable vertical scrolling */
     scroll-snap-type: x mandatory;
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */
@@ -38,9 +39,10 @@ body {
 
 .text {
     color: #f1e1d1; /* This is the hex code for cream color */
-    font-size: 25px; /* Adjust the size as needed */
+    font-size: 1.2em; /* Adjust the size as needed */
     text-align: center; /* Center aligns the text */
-    padding: 90px;
+    padding: 0 90px;
+    
 }
 
 
